@@ -61,5 +61,11 @@ AND rooms.`roomname` = 'lobby';
 
 // Update existing field where foreign ID is something specific
 UPDATE messages SET text = 'hello world' WHERE userID = 1;
+
+
+
+//command to add a user
+curl -XPOST -H  "Content-Type: application/json" -H "Content-Type: application/x-www-form-urlencoded" localhost:3000/classes/users -d '{"name": "mona"}'
+
  
  
