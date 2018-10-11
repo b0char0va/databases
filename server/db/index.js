@@ -8,18 +8,18 @@ var mysql = require('mysql');
 
 
 
-module.exports ={
-  getConnection: function(){
+module.exports = {
+  getConnection: function() {
     var con = mysql.createConnection({
-      host: "localhost",
-      user: "student",
-      password: "student",
-      database: "chat"
+      host: 'localhost',
+      user: 'student',
+      password: 'student',
+      database: 'chat'
     });
 
     con.connect(function(err) {
-      if (err) throw err;
-      console.log("Connected!");
+      if (err) { throw err; }
+      console.log('Connected!');
     });
     return con;
   }

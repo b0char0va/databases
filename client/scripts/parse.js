@@ -1,11 +1,12 @@
 var Parse = {
 
   server: 'http://127.0.0.1:3000/classes/messages',
+  // server: 'http://127.0.0.1:3000/classes/users',
 
-  create: function(message, successCB, errorCB = null) {
+  create: function(url, message, successCB, errorCB = null) {
 
     $.ajax({
-      url: Parse.server,
+      url: url,
       type: 'POST',
       data: JSON.stringify(message),
       contentType: 'application/json',

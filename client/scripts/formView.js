@@ -10,14 +10,29 @@ var FormView = {
     // Stop the browser from submitting the form
     event.preventDefault();
     
-
-    var message = {
-      username: App.username,
-      text: FormView.$form.find('#message').val(),
-      roomname: Rooms.selected || 'lobby'
+  
+    var userObj = {
+      name: App.username
     };
+    var link = 'http://127.0.0.1:3000/classes/users';
+    console.log(userObj);
+    
+    Parse.create(link, userObj, (data) => {
+      // _.extend(userObj, data);
+      console.log('success');
+    })
+    
+    var messageLink = 'http://127.0.0.1:3000/classes/messages';
+    var message = {
+      text: FormView.$form.find('#message').val(),
+      user_id: 1,
+      room_id: 1
+      // user_id: App.username,
+      // room_id: Rooms.selected || 'lobby'
+    };
+    console.log(message);
 
-    Parse.create(message, (data) => {
+    Parse.create(messageLink, message, (data) => {
       _.extend(message, data);
       Messages.add(message, MessagesView.render);
     });

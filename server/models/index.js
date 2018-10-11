@@ -8,7 +8,7 @@ module.exports = {
     get: function (req, res) {
       
       db.getConnection().query('select * from messages', function (error, results, fields) {
-        if (error) throw error;
+        if (error) { throw error; }
         res.end(JSON.stringify(results));
       });
       // const q = 'SELECT * FROM messages'
@@ -32,12 +32,16 @@ module.exports = {
     // Ditto as above.
     get: function (req, res) {
       db.getConnection().query('select * from users', function (error, results, fields) {
-        if (error) throw error;
+        if (error) { throw error; }
         res.end(JSON.stringify(results));
       });
     },
     post: function (req, res) {
       var postData = req.body;
+      // console.log("test" + JSON.stringify(postData.name));
+      var name = JSON.stringify(postData.name);
+      var id = db.getConnection().query(`SELECT id from users WHERE name = ${name}`);
+      console.log(id);
       db.getConnection().query('INSERT INTO users SET ?', postData, function (error, results, fields) {
         if (error) { throw error; }
         res.end(JSON.stringify(results));

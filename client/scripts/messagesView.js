@@ -19,7 +19,7 @@ var MessagesView = {
   renderMessage: function(message) {
     // console.log('FROM RENDER MESSAGE', message);
     var $message = MessageView.render(message);
-    console.log('jquery', $message)
+    // console.log('jquery', $message);
     MessagesView.$chats.prepend($message);
   },
 

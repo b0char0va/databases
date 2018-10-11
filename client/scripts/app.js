@@ -23,7 +23,7 @@ var App = {
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
       var parsedData = JSON.parse(data);
-      console.log(parsedData)
+      console.log(parsedData);
       // console.log(data);
 
       // Don't bother to update if we have no messages
