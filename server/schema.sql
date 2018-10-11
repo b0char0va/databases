@@ -1,6 +1,6 @@
-/*CREATE DATABASE chat;
+CREATE DATABASE chat;
 
-USE chat;*/
+USE chat;
 
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
@@ -17,7 +17,7 @@ CREATE TABLE rooms (
 CREATE TABLE messages (
   /* Describe your table here.*/
   id INT NOT NULL AUTO_INCREMENT,
-  created_at timestamp not null,
+  created_at timestamp DEFAULT NOW(),
   text VARCHAR(200) not null DEFAULT '',
   user_id int NOT NULL,
   room_id int NOT NULL,
@@ -29,10 +29,10 @@ CREATE TABLE messages (
 
 
 
-— source server/schema.sql
+-- — source server/schema.sql
 
 
- — mysql -u root < server/schema.sql
+ -- — mysql -u root < server/schema.sql
 /* Create other tables and define schemas for them here! */
 
 

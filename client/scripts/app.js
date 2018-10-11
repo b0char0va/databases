@@ -22,15 +22,26 @@ var App = {
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
-      // JSON.parse(data);
+      var parsedData = JSON.parse(data);
+      console.log(parsedData)
+      // console.log(data);
 
       // Don't bother to update if we have no messages
-      if (!data.results || !data.results.length) { return; }
+      // if (!data.results || !data.results.length) { return; }
 
-      Rooms.update(data.results, RoomsView.render);
-      Messages.update(data.results, MessagesView.render);
+      // Rooms.update(data.results, RoomsView.render);
+      // Messages.update(data.results, MessagesView.render);
+      
+      // callback();
+      
+      if (!parsedData || !parsedData.length) { return; }
+
+      // Rooms.update(parsedData, RoomsView.render);
+      Messages.update(parsedData, MessagesView.render);
       
       callback();
+      
+      
     });
   },
 

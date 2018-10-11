@@ -52,7 +52,7 @@ VALUES
  ALTER TABLE messages MODIFY roomID VARCHAR(255);
  
 // insert in messages table two foreign keys 
-INSERT INTO messages (userID, roomID)
+INSERT INTO messages (user_id, room_id)
 SELECT users.id, rooms.id
 FROM users AS users
 CROSS JOIN rooms AS rooms
@@ -65,7 +65,7 @@ UPDATE messages SET text = 'hello world' WHERE userID = 1;
 
 
 //command to add a user
-curl -XPOST -H  "Content-Type: application/json" -H "Content-Type: application/x-www-form-urlencoded" localhost:3000/classes/users -d '{"name": "mona"}'
+curl -XGET localhost:3000/classes/messages
 
  
  

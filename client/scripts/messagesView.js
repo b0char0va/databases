@@ -12,12 +12,14 @@ var MessagesView = {
     MessagesView.$chats.html('');
     Messages
       .items()
-      .filter(message => Rooms.isSelected(message.roomname))
+      // .filter(message => Rooms.isSelected(message.room_id))
       .each(message => MessagesView.renderMessage(message));
   },
 
   renderMessage: function(message) {
+    // console.log('FROM RENDER MESSAGE', message);
     var $message = MessageView.render(message);
+    console.log('jquery', $message)
     MessagesView.$chats.prepend($message);
   },
 
