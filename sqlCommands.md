@@ -67,5 +67,10 @@ UPDATE messages SET text = 'hello world' WHERE userID = 1;
 //command to add a user
 curl -XGET localhost:3000/classes/messages
 
- 
+
+UPDATE users
+SET name = NULL
+WHERE name is not null;
+
+ delete from users where name = 'sung';
  

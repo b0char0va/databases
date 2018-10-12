@@ -15,27 +15,26 @@ var FormView = {
       name: App.username
     };
     var link = 'http://127.0.0.1:3000/classes/users';
-    console.log(userObj);
     
-    Parse.create(link, userObj, (data) => {
+    Parse.create(link, userObj, (id) => {
       // _.extend(userObj, data);
-      console.log('success');
-    })
-    
-    var messageLink = 'http://127.0.0.1:3000/classes/messages';
-    var message = {
-      text: FormView.$form.find('#message').val(),
-      user_id: 1,
-      room_id: 1
-      // user_id: App.username,
-      // room_id: Rooms.selected || 'lobby'
-    };
-    console.log(message);
+      var messageLink = 'http://127.0.0.1:3000/classes/messages';
+      var message = {
+        text: FormView.$form.find('#message').val(),
+        user_id: id,
+        room_id: 1
+        // user_id: App.username,
+        // room_id: Rooms.selected || 'lobby'
+      };
 
-    Parse.create(messageLink, message, (data) => {
-      _.extend(message, data);
-      Messages.add(message, MessagesView.render);
+      Parse.create(messageLink, message, (data) => {
+        _.extend(message, data);
+        message['name'] = App.username;
+        Messages.add(message, MessagesView.render);
+      });
     });
+    
+    
   },
 
   setStatus: function(active) {
@@ -43,4 +42,4 @@ var FormView = {
     FormView.$form.find('input[type=submit]').attr('disabled', status);
   }
 
-};
+}; 

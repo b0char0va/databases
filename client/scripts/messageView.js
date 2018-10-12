@@ -7,8 +7,8 @@ var MessageView = {
       <div class="chat">
         <div
           class="username"
-          data-username="<%- user_id %>">
-          <%- user_id %>
+          data-username="<%- name %>">
+          <%- name %>
         </div>
         <div><%- text %></div>
       </div>

@@ -2,7 +2,7 @@ var App = {
 
   $spinner: $('.spinner img'),
 
-  username: 'anonymous',
+  // username: 'anonymous',
 
   initialize: function() {
     App.username = window.location.search.substr(10);
@@ -17,13 +17,14 @@ var App = {
 
 
     // Poll for new messages every 3 sec
-    setInterval(App.fetch, 3000);
+    //setInterval(App.fetch, 3000);
+    
+    // setTimeout(App.fetch, 3000);
   },
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
       var parsedData = JSON.parse(data);
-      console.log(parsedData);
       // console.log(data);
 
       // Don't bother to update if we have no messages

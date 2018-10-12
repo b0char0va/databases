@@ -1,26 +1,36 @@
 // after db 
 var db = require('../db');
 
-
 // console.log({db});
+
+  // get: function (callback) {
+  //     // fetch all messages
+  //     // text, username, roomname, id
+     
+  //     db.query(queryStr, function(err, results) {
+  //       callback(err, results);
+  //     });
+  //   },
+    
+    
+    
 module.exports = {
+ 
   messages: {
     get: function (req, res) {
-      
-      db.getConnection().query('select * from messages', function (error, results, fields) {
+       var queryStr = 'select messages.id, messages.text, users.name \
+                      from messages left outer join users on (messages.user_id = users.id) \
+                      order by messages.id desc';
+      db.getConnection().query(queryStr, function (error, results, fields) {
         if (error) { throw error; }
+        // console.log({results})
         res.end(JSON.stringify(results));
       });
-      // const q = 'SELECT * FROM messages'
-      // db.getConnection().query(q, [req.params.id], function(error, results, fields) {
-      //   console.log('inside message get', {results})
-      //   console.log('inside message get', {fields})
-      // })
     },
-
+    
     post: function (req, res) {
       var postData = req.body;
-      console.log({postData});
+      // console.log({postData});
       db.getConnection().query('INSERT INTO messages SET ?', postData, function (error, results, fields) {
         if (error) { throw error; }
         res.end(JSON.stringify(results));
@@ -33,18 +43,26 @@ module.exports = {
     get: function (req, res) {
       db.getConnection().query('select * from users', function (error, results, fields) {
         if (error) { throw error; }
+        console.log({results})
         res.end(JSON.stringify(results));
       });
     },
+    
     post: function (req, res) {
       var postData = req.body;
-      // console.log("test" + JSON.stringify(postData.name));
       var name = JSON.stringify(postData.name);
-      var id = db.getConnection().query(`SELECT id from users WHERE name = ${name}`);
-      console.log(id);
-      db.getConnection().query('INSERT INTO users SET ?', postData, function (error, results, fields) {
-        if (error) { throw error; }
-        res.end(JSON.stringify(results));
+      db.getConnection().query(`SELECT id from users WHERE name = ${name}`, function (error, results, fields) {
+    
+        if (!results.length) {
+          db.getConnection().query('INSERT INTO users SET ?', postData, function (error, results, fields) {
+            if (error) { throw error; }
+            db.getConnection().query(`SELECT id from users WHERE name = ${name}`, function (error, results, fields) {
+              res.end(JSON.stringify(results[0].id));
+            });
+          });
+        } else {
+          res.end(JSON.stringify(results[0].id));
+        }
       });
     }
   }
